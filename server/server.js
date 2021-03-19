@@ -2,12 +2,12 @@
 const express = require( 'express' );
 const app = express();
 const bodyParser = require( 'body-parser');
+const router = require( './modules/routes/tasks_routes')
 
 // uses
 app.use( express.static( 'server/public' ) );
 app.use( bodyParser.urlencoded( { extended: true } ) );
-
-// routes
+app.use( '/tasks', router );
 
 // globals
 const port = 5000;
