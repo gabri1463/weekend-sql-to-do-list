@@ -5,6 +5,7 @@ function renderDOM() {
     getTasks();
     // click listeners
     $( '#addTaskButton' ).on( 'click', addTask );
+    $( '#tasksOut' ).on( 'click', '.completeButton' , completeTask)
 } // end renderDOM
 
 function addTask() {
@@ -48,13 +49,36 @@ function displayTasks( array ) {
     let el = $( '#tasksOut' );
     el.empty();
     for( let i = 0; i < array.length; i++) {
+        let completed = `<button class="completeButton" data-id="${array[i].id}">Complete</button>`
+        // if array[i].completed is true, do not append Complete button
+        if( array[i].completed ) {
+            completed = '';
+        }
         el.append(
             `
             <tr>
                 <td>${array[i].task}</td>
                 <td>${array[i].completed}</td>
+                <td>${completed}</td>
+                <td><button class="deleteButton">Delete</button></td>
             </tr>
             `
         );
     }
 } // end displayTasks
+
+function completeTask() {
+    console.log( 'in completeTask' );
+    let myID = $( this ).data( 'id' );
+    // ajax put call
+    $.ajax({
+        method: 'PUT',
+        url: '/tasks/' + myID
+    }).then( function( response ) {
+        console.log( 'back from PUT with:', response);
+        getTasks();
+    }).catch( function( err ) {
+        alert( 'error in updating task' );
+        console.log( err );
+    })
+} // end completeTask
