@@ -5,7 +5,8 @@ function renderDOM() {
     getTasks();
     // click listeners
     $( '#addTaskButton' ).on( 'click', addTask );
-    $( '#tasksOut' ).on( 'click', '.completeButton' , completeTask)
+    $( '#tasksOut' ).on( 'click', '.completeTaskButton' , completeTask)
+    $( '#tasksOut' ).on( 'click', '.deleteTaskButton' , deleteTask)
 } // end renderDOM
 
 function addTask() {
@@ -49,7 +50,7 @@ function displayTasks( array ) {
     let el = $( '#tasksOut' );
     el.empty();
     for( let i = 0; i < array.length; i++) {
-        let completed = `<button class="completeButton" data-id="${array[i].id}">Complete</button>`
+        let completed = `<button class="completeTaskButton" data-id="${array[i].id}">Complete</button>`
         // if array[i].completed is true, do not append Complete button
         if( array[i].completed ) {
             completed = '';
@@ -60,7 +61,7 @@ function displayTasks( array ) {
                 <td>${array[i].task}</td>
                 <td>${array[i].completed}</td>
                 <td>${completed}</td>
-                <td><button class="deleteButton">Delete</button></td>
+                <td><button class="deleteTaskButton" data-id="${array[i].id}">Delete</button></td>
             </tr>
             `
         );
@@ -82,3 +83,19 @@ function completeTask() {
         console.log( err );
     })
 } // end completeTask
+
+function deleteTask() {
+    console.log( 'in deleteTask ');
+    // make ajax delete call to server
+    let myID = $( this ).data( 'id' );
+    $.ajax({
+        method: 'DELETE',
+        url: '/tasks/' + myID
+    }).then( function( response ) {
+        console.log( 'back from DELETE with:', response);
+        getTasks();
+    }).catch( function( err ) {
+        alert( 'error in deleting task' );
+        console.log( err );
+    });
+} // end deleteTask
