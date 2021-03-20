@@ -19,8 +19,8 @@ router.get( '/', ( req, res ) => {
 // POST
 router.post( '/', ( req, res ) => {
     console.log( 'in tasks_routes POST' );
-    let queryText = `INSERT INTO "tasks" ("task", "completed") VALUES ($1, $2)`;
-    pool.query( queryText, [ req.body.task, req.body.completed ] ).then( ( results ) => {
+    let queryText = `INSERT INTO "tasks" ("task", "completed", "timecompleted") VALUES ($1, $2, $3)`;
+    pool.query( queryText, [ req.body.task, req.body.completed, req.body.timecompleted ] ).then( ( results ) => {
         res.sendStatus( 200 );
     }).catch( ( err ) => {
         console.log( err );
@@ -32,9 +32,9 @@ router.post( '/', ( req, res ) => {
 // PUT
 router.put( '/:id', ( req, res ) => {
     console.log( 'in tasks_routes PUT', req.params );
-    let queryText = `UPDATE "tasks" SET "completed" = true WHERE "id" = $1`;
-    pool.query( queryText, [ req.params.id ] ).then( ( results ) => {
-        res.send(moment().format( 'hh:mm A' ) );
+    let queryText = `UPDATE "tasks" SET "completed" = true, "timecompleted" = $2 WHERE "id" = $1`;
+    pool.query( queryText, [ req.params.id, moment().format( 'hh:mm A' ) ] ).then( ( results ) => {
+        res.sendStatus( 200 );
     }).catch( ( err ) => {
         console.log( err );
         res.sendStatus( 500 );

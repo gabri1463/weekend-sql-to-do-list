@@ -1,5 +1,3 @@
-let timeCompleted = '';
-
 $( document ).ready( renderDOM );
 
 function renderDOM() {
@@ -16,7 +14,8 @@ function addTask() {
     // get user input
     let objectToSend = {
         task: $( '#taskIn' ).val(),
-        completed: false
+        completed: false,
+        timecompleted: ''
     }
     // make ajax request
     $.ajax({
@@ -51,16 +50,10 @@ function displayTasks( array ) {
     console.log( 'in displayTasks' );
     let el = $( '#tasksOut' );
     el.empty();
-    console.log( 'timeCompleted in displayTracks', timeCompleted)
     for( let i = 0; i < array.length; i++) {
         let completed = `<input style="width:30px;height:30px" class="form-check-input completeTaskButton" type="checkbox" data-id="${array[i].id}">`
-        // if array[i].completed is true, do not append Complete button
         if( array[i].completed ) {
             completed = `<input style="width:30px;height:30px" class="form-check-input completeTaskButton" type="checkbox" data-id="${array[i].id}" checked disabled>`;
-        }
-        // if the task is not completed, set time completed to an empty string
-        if( !array[i].completed ) {
-            timeCompleted = '';
         }
         el.append(
             `
@@ -75,7 +68,7 @@ function displayTasks( array ) {
                     </svg>
                     </button>
                 </td>
-                <td>${timeCompleted}</td>
+                <td>${array[i].timecompleted}</td>
             </tr>
             `
         );
@@ -91,8 +84,6 @@ function completeTask() {
         url: '/tasks/' + myID
     }).then( function( response ) {
         console.log( 'back from PUT with:', response);
-        timeCompleted = response;
-        console.log( 'timeCompleted', timeCompleted);
         getTasks();
     }).catch( function( err ) {
         alert( 'error in updating task' );
