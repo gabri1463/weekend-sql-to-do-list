@@ -4,6 +4,6 @@ CREATE TABLE "tasks" (
     "completed" boolean
 );
 
-INSERT INTO "tasks" (task) VALUES ('get off my lawn');
+INSERT INTO "tasks" (task, completed) VALUES ('get off my lawn', false);
 
 SELECT * FROM "tasks"

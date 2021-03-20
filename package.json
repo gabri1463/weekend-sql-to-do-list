@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabri1463/weekend-sql-to-do-list.git"
+    "url": "git+https://github.com/lucasgabrielson/weekend-sql-to-do-list.git"
   },
   "author": "Lucas Gabrielson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gabri1463/weekend-sql-to-do-list/issues"
+    "url": "https://github.com/lucasgabrielson/weekend-sql-to-do-list/issues"
   },
-  "homepage": "https://github.com/gabri1463/weekend-sql-to-do-list#readme",
+  "homepage": "https://github.com/lucasgabrielson/weekend-sql-to-do-list#readme",
   "dependencies": {
     "express": "^4.17.1",
     "moment": "^2.29.1",
