@@ -93,15 +93,30 @@ function completeTask() {
 function deleteTask() {
     console.log( 'in deleteTask ');
     // make ajax delete call to server
-    let myID = $( this ).data( 'id' );
-    $.ajax({
-        method: 'DELETE',
-        url: '/tasks/' + myID
-    }).then( function( response ) {
-        console.log( 'back from DELETE with:', response);
-        getTasks();
-    }).catch( function( err ) {
-        alert( 'error in deleting task' );
-        console.log( err );
+    swal({
+        title: "Are you sure you want to delete this task",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then( willDelete => {
+        if( willDelete ) {
+            swal('The task has been deleted', {
+                icon: "success",
+            });
+            let myID = $( this ).data( 'id' );
+            $.ajax({
+                method: 'DELETE',
+                url: '/tasks/' + myID
+            }).then( function( response ) {
+                console.log( 'back from DELETE with:', response);
+                getTasks();
+            }).catch( function( err ) {
+                alert( 'error in deleting task' );
+                console.log( err );
+            });
+        } // end if deleted selected
+        else {
+            swal( 'The task will not be deleted');
+        }
     });
 } // end deleteTask
