@@ -1,7 +1,8 @@
 const express = require( 'express' );
 const router = express.Router();
 const pool = require( '../pool');
-const timeCompleted = require( '../moment')
+// const timeCompleted = require( '../moment')
+const moment = require( 'moment' );
 
 // GET
 router.get( '/', ( req, res ) => {
@@ -33,7 +34,7 @@ router.put( '/:id', ( req, res ) => {
     console.log( 'in tasks_routes PUT', req.params );
     let queryText = `UPDATE "tasks" SET "completed" = true WHERE "id" = $1`;
     pool.query( queryText, [ req.params.id ] ).then( ( results ) => {
-        res.send(timeCompleted);
+        res.send(moment().format( 'hh:mm A' ) );
     }).catch( ( err ) => {
         console.log( err );
         res.sendStatus( 500 );
