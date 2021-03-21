@@ -7,6 +7,8 @@ function renderDOM() {
     $( '#addTaskButton' ).on( 'click', addTask );
     $( '#tasksOut' ).on( 'click', '.completeTaskButton' , completeTask)
     $( '#tasksOut' ).on( 'click', '.deleteTaskButton' , deleteTask)
+    $( '#tasksOut' ).on( 'click', '.editTimeButton' , editTime)
+
 } // end renderDOM
 
 function addTask() {
@@ -25,6 +27,7 @@ function addTask() {
     }).then( function( response ) {
         console.log( 'back from PUT with:', response);
         getTasks();
+        clearInput();
     }).catch( function( err ) {
         alert( 'error adding the task' );
         console.log( err );
@@ -68,7 +71,15 @@ function displayTasks( array ) {
                     </svg>
                     </button>
                 </td>
-                <td>${array[i].timecompleted}</td>
+                <td>
+                ${array[i].timecompleted}
+                <span class="editTimeButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                </td>
             </tr>
             `
         );
@@ -121,3 +132,26 @@ function deleteTask() {
         }
     });
 } // end deleteTask
+
+function clearInput() {
+    $( '#taskIn' ).val( '' );
+}
+
+function editTime() {
+    let regexTimeFormat = /\d{2}\:\d{2}\s{1}[PA][M]/;
+    console.log( 'in editTime' );
+    swal.fire({
+        title: 'Edit time completed',
+        text: 'Format: (hh:mm AM/PM)',
+        input: 'text',
+        showCancelButton: true
+    }).then( function( results ) {
+        if( regexTimeFormat.test( results.value ) ){
+            console.log( 'regex was true' );
+        }
+        // console.log( $(this.parent()));
+    }).catch( function( err ) {
+        alert( 'there was an erroring updating the time, use hh:mm AM/PM format' );
+        console.log( err );
+    })
+}
