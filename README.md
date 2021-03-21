@@ -23,6 +23,9 @@ In order to delete a task I used an svg image for my icon and a sweetalert messa
 
 ## Screen Shot
 
+<img width="1364" alt="Screen Shot 2021-03-21 at 3 49 23 PM" src="https://user-images.githubusercontent.com/74149109/111920474-332b4f00-8a5d-11eb-9519-1c67406423ff.png">
+<img width="1375" alt="Screen Shot 2021-03-21 at 3 49 39 PM" src="https://user-images.githubusercontent.com/74149109/111920477-345c7c00-8a5d-11eb-8a3a-49d2d15e5a5e.png">
+<img width="1386" alt="Screen Shot 2021-03-21 at 3 49 50 PM" src="https://user-images.githubusercontent.com/74149109/111920478-345c7c00-8a5d-11eb-95c7-d126e78647bf.png">
 
 ### Prerequisites
 
