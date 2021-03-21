@@ -58,4 +58,4 @@ Link to software that is required to install the app (e.g. node).
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality, my brother [Graham Gabrielson](https://www.researchgate.net/profile/Graham-Gabrielson) and wife [Jaclyn Gabrielson](https://www.linkedin.com/in/jmerriamcpa/) for input on the usability. 
 
 ## Support
-If you have suggestions or issues, please email me at [lucas.c.gbarielson@gmail.com]
+If you have suggestions or issues, please email me at [lucas.c.gabrielson@gmail.com]
