@@ -73,7 +73,7 @@ function displayTasks( array ) {
                 </td>
                 <td>
                 ${array[i].timecompleted}
-                <span class="editTimeButton">
+                <span data-id="${array[i].id}" class="editTimeButton">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                         <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
@@ -138,8 +138,9 @@ function clearInput() {
 }
 
 function editTime() {
-    let regexTimeFormat = /\d{2}\:\d{2}\s{1}[PA][M]/;
     console.log( 'in editTime' );
+    let regexTimeFormat = /\d{2}\:\d{2}\s{1}[PA][M]/;
+    let myID = $( this ).data( 'id' );
     swal.fire({
         title: 'Edit time completed',
         text: 'Format: (hh:mm AM/PM)',
@@ -147,7 +148,16 @@ function editTime() {
         showCancelButton: true
     }).then( function( results ) {
         if( regexTimeFormat.test( results.value ) ){
-            console.log( 'regex was true' );
+            $.ajax({
+                method: 'PUT',
+                url: `/editTime/${ myID }?newTime=${ results.value }`
+            }).then( function( response ) {
+                console.log( 'back from /tasks/editTime PUT with:', response);
+                getTasks();
+            }).catch( function( err ) {
+                alert( 'error updating time' );
+                console.log( err );
+            })
         }
         // console.log( $(this.parent()));
     }).catch( function( err ) {
