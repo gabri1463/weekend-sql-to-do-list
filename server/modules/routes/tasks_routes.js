@@ -33,7 +33,7 @@ router.post( '/', ( req, res ) => {
 router.put( '/:id', ( req, res ) => {
     console.log( 'in tasks_routes PUT', req.params );
     let queryText = `UPDATE "tasks" SET "completed" = true, "timecompleted" = $2 WHERE "id" = $1`;
-    pool.query( queryText, [ req.params.id, moment().format( 'hh:mm A' ) ] ).then( ( results ) => {
+    pool.query( queryText, [ req.params.id, moment().format( 'hh:mm a' ) ] ).then( ( results ) => {
         res.sendStatus( 200 );
     }).catch( ( err ) => {
         console.log( err );

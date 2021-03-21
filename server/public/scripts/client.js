@@ -94,17 +94,32 @@ function displayTasks( array ) {
 function completeTask() {
     console.log( 'in completeTask' );
     let myID = $( this ).data( 'id' );
-    // ajax put call
-    $.ajax({
-        method: 'PUT',
-        url: '/tasks/' + myID
-    }).then( function( response ) {
-        console.log( 'back from PUT with:', response);
-        getTasks();
-    }).catch( function( err ) {
-        alert( 'error in updating task' );
-        console.log( err );
-    })
+    swal({
+        title: "Are you sure?",
+        text: "Once completed, you will not be able uncomplete!",
+        icon: "warning",
+        buttons: true,
+    }).then(function( complete ) {
+        if ( complete ) {
+            swal("The task is completed", {
+                icon: "success",
+            });
+            // ajax put call
+            $.ajax({
+                method: 'PUT',
+                url: '/tasks/' + myID
+            }).then( function( response ) {
+                console.log( 'back from PUT with:', response);
+                getTasks();
+            }).catch( function( err ) {
+                alert( 'error in updating task' );
+                console.log( err );
+            })
+        } // end if
+        else {
+            swal("Your task remains unfinished");
+        }
+    });
 } // end completeTask
 
 function deleteTask() {
@@ -174,4 +189,3 @@ function editTime() {
         console.log( err );
     })
 }
-  
